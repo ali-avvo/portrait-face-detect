@@ -82,9 +82,10 @@ class Image:
 
 
 img_obj = Image(sys.argv[1])
+#9 = max blur
 portrait_bokeh_image = img_obj.blur(9)
 # print("BLUR SHAPE: ", portrait_bokeh_image.shape)
-cv2.imwrite("blur.png", portrait_bokeh_image)
+# cv2.imwrite("blur.png", portrait_bokeh_image)
 
 # Ali: What if we create a template blank circular headshot
 # of the size we want to show on the profile etc
