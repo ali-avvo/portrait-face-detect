@@ -54,7 +54,7 @@ def generate_mask(img, rois):
             img[i][j][3] = 0
     i = 0
     for roi in rois:
-        print(roi)
+        # print(roi)
         roi = list(roi)
         if roi[2] != roi[3]:
             if roi[2] > roi[3]:

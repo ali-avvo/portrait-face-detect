@@ -82,7 +82,7 @@ class Image:
 
 
 img_obj = Image(sys.argv[1])
-portrait_bokeh_image = img_obj.blur(int(sys.argv[2]))
+portrait_bokeh_image = img_obj.blur(9)
 # print("BLUR SHAPE: ", portrait_bokeh_image.shape)
 cv2.imwrite("blur.png", portrait_bokeh_image)
 
