@@ -1,8 +1,3 @@
-"""
-Author: Kushashwa Ravi Shrimali
-Utility File for Portrait Bokeh
-"""
-
 import cv2
 import numpy as np
 
@@ -39,7 +34,7 @@ def crop_circle(img, roi):
     Returns
     :img: np.ndarray type (with cropped portion with alpha = 0.0 everything else 100.0)
     """
-    # maybe we to cap the radius at the maxium width of the rectangular headshot 
+    # maybe we to cap the radius at the maxium width of the rectangular headshot
     radius = roi[0] * 1.7
     center = roi[1]
 
