@@ -14,7 +14,6 @@ class Image:
     -----------
     Methods
     * __len__(): args: None, returns: shape of the image
-    * roi_selector(): args: None, returns roi object
     * hull(): args: None, returns: hull array
     * face_detect(): args: None, returns: faces array
     * blur(): args: kernel_size=5, returns: portrait bokeh output image
@@ -38,13 +37,6 @@ class Image:
         :return: int, number of pixels in self.img object
         """
         return self.img.shape[0] * self.img.shape[1] * self.img.shape[2]
-        """
-        :return: roi object
-        """
-        # Convert to Gray Scale
-        self.gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
-        roi = cv2.selectROI(self.gray)
-        return roi
 
     def hull(self):
         """
