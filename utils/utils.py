@@ -72,7 +72,9 @@ def generate_mask(img, rois):
             img_cropped = crop_circle(img, list_)
         else:
             img_cropped = crop_circle(img_cropped, list_)
-        cv2.imwrite("./images/cropped/cropped_"+str(time.time())+"_"+str(i)+"_face.png", img_cropped)
+        filename = "./images/cropped/cropped_"+str(time.time())+"_"+str(i)+"_face.png"
+        print(filename)
+        cv2.imwrite(filename, img_cropped)
         i+=1
     return img_cropped
 
