@@ -29,7 +29,6 @@ def crop_circle(img, roi):
     ------------
     Parameters:
     :img: np.ndarray type
-    # /:roi: [(roi[1]:roi[1] + roi[3]), (roi[0]:roi[0] + roi[2])]
     :roi: [radius, center]
     -----------
     Returns
@@ -43,6 +42,34 @@ def crop_circle(img, roi):
         for j in range(img.shape[1]):
             is_outside = circ_func(j, i, r=radius, c=center)
             if(is_outside == False):
+                img[i][j][3] = 255
+            elif(img[i][j][3] != 255):
+                img[i][j][3] = 0
+    return img
+
+def square_func(point_x, point_y, roi):
+    x1, y1, w, h = roi
+
+    square_add = 20
+
+    w+=square_add
+    h+=square_add
+    x1 = (x1) - (square_add/2)
+    y1 = (y1) - (square_add/2)
+
+    x2, y2 = x1+w, y1+h
+
+    x, y = [point_x, point_y]
+    if (x1 < x and x < x2):
+        if (y1 < y and y < y2):
+            return True
+    return False
+
+def crop_square(img, roi):
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            is_outside = square_func(j, i, roi=roi)
+            if is_outside:
                 img[i][j][3] = 255
             elif(img[i][j][3] != 255):
                 img[i][j][3] = 0
@@ -62,18 +89,24 @@ def generate_mask(img, rois):
                 roi[2] = roi[3]
             else:
                 roi[3] = roi[2]
+
         #list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + int(roi[3]/2.0)]]
-        half_the_width  = int(roi[2]/2.0)
-        half_the_height = int(roi[3]/2.0)
-        box_x = roi[0]
-        box_y = roi[1]
-        list_ = [half_the_width, [box_x + half_the_width, box_y + half_the_height]]
+        # half_the_width  = int(roi[2]/2.0)
+        # half_the_height = int(roi[3]/2.0)
+        # box_x = roi[0]
+        # box_y = roi[1]
+        # list_ = [half_the_width, [box_x + half_the_width, box_y + half_the_height]]
+
         if i == 0:
-            img_cropped = crop_circle(img, list_)
+            # img_cropped = crop_circle(img, list_)
+            img_cropped = crop_square(img, roi)
         else:
-            img_cropped = crop_circle(img_cropped, list_)
+            # img_cropped = crop_circle(img_cropped, list_)
+            img_cropped = crop_square(img_cropped, roi)
+
         filename = "./images/"+ str(time.time())+"_cropped_face_"+str(i)+".png"
         print(filename)
+        cv2.imwrite("./images/latest.png", img_cropped)
         cv2.imwrite(filename, img_cropped)
         i+=1
     return img_cropped
